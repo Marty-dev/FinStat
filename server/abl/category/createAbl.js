@@ -1,12 +1,14 @@
 const Ajv = require('ajv');
 const AddFormats = require('ajv-formats');
 const ajv = new Ajv();
+AddFormats(ajv);
 
 const categoryDao = require('../../dao/category-dao.js');
 
 const scheme = {
     type: 'object',
     properties: {
+        id: { type: 'string', minLength: 32, maxLength: 32},
         name: { type: 'string', minLength: 1 },
     },
     required: ['name'],
@@ -15,9 +17,9 @@ const scheme = {
 
 async function createAbl(req, res) {
     try {
-        let category = req.body;
+        let reqParams = req.body;
 
-        const valid = ajv.validate(scheme, category);
+        const valid = ajv.validate(scheme, reqParams);
         if (!valid) {
             res.status(400).json({
                 code: "invalidCategory",
@@ -27,8 +29,8 @@ async function createAbl(req, res) {
             return;
         }
 
-        category = categoryDao.createCategory(category)
-        res.json(category);
+        reqParams = categoryDao.createCategory(reqParams)
+        res.json(reqParams);
     }
     catch (e) {
         res.status(500).json({
