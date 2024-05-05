@@ -11,7 +11,7 @@ const scheme = {
         date: { type: 'string', format: 'date-time' },
         note: { type: 'string' },
         amount: { type: 'number', minLength: 1 },
-        category: { type: 'string', minLength: 1 },
+        category: { type: 'string' },
     },
     required: ['amount', 'category', 'date'],
     additionalProperties: false,
@@ -36,9 +36,9 @@ async function CreateAbl(req, res) {
         reqParams = incomeDao.createIncome(reqParams)
         res.json(reqParams);
     }
-    catch (e) {
+    catch (error) {
         res.status(500).json({
-            message: e.message
+            message: error.message
         })
     }
 }

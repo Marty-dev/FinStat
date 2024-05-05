@@ -32,9 +32,9 @@ async function createAbl(req, res) {
         reqParams = categoryDao.createCategory(reqParams)
         res.json(reqParams);
     }
-    catch (e) {
+    catch (error) {
         res.status(500).json({
-            message: e.message
+            message: error.message
         })
     }
 }

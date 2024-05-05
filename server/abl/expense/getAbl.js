@@ -22,8 +22,6 @@ async function GetAbl(req, res) {
                 code: "invalidExpense",
                 message: "The expense is invalid",
                 validationErrors: ajv.errors,
-
-
             });
             return;
         }
@@ -39,9 +37,9 @@ async function GetAbl(req, res) {
 
         res.json(reqParams);
     }
-    catch (e) {
+    catch (error) {
         res.status(500).json({
-            message: e.message
+            message: error.message
         })
     }
 }

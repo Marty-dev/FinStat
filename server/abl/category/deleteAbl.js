@@ -30,9 +30,9 @@ async function deleteAbl(req, res) {
         reqParams = categoryDao.removeCategory(reqParams.id)
         res.json(reqParams);
     }
-    catch (e) {
+    catch (error) {
         res.status(500).json({
-            message: e.message
+            message: error.message
         })
     }
 }
